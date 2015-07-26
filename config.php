@@ -11,7 +11,6 @@ class Config {
 		"template"=>"%%matches%%",
 	);
 	//User account details
-	//These aren't real, don't bother trying them
 	static $User = array(
 		"user"=>'',
 		"passwd"=>"",
@@ -21,7 +20,7 @@ class Config {
 		"NAR v2" => "Archon",
 	);
 	static $Icons = array(
-		"empty" => "empty",
+		"Fnatic" => "fnc",
 	);
 }
 ?>

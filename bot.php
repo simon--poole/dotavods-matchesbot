@@ -38,7 +38,8 @@ class MatchesBot {
 			$redTeam = $match->team2->team_tag;
 			$blueTeam = $match->team1->team_tag;
 			$timeDiff = $match->timediff;
-			$matches[] = array($tournament, $redTeam, $blueTeam, $timeDiff);
+			$bo_x = $match->series_type;
+			$matches[] = array($tournament, $redTeam, $blueTeam, $timeDiff, $bo_x);
 		}
 		return $matches;
 	}
@@ -61,7 +62,9 @@ class MatchesBot {
 		$result = "";
 		foreach($matches as $match){
 			$spoiler = $this->checkSpoiler($match[0], $match[1], $match[2]);
-			if($match[3] <= 0)
+			if($match[3] < (-3600 * $match[4]))
+				continue 1;
+			else if($match[3] <= 0)
 				$time = "**LIVE**";
 			else {
 				$hrs = floor((int) $match[3] / 3600);
