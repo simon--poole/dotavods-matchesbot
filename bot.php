@@ -61,7 +61,9 @@ class MatchesBot {
 		$result = "";
 		foreach($matches as $match){
 			$spoiler = $this->checkSpoiler($match[0], $match[1], $match[2]);
-			if($match[3] <= 0)
+			if($match[3] <= -3600)
+				continue 1;
+			else if($match[3] <= 0)
 				$time = "**LIVE**";
 			else {
 				$hrs = floor((int) $match[3] / 3600);
