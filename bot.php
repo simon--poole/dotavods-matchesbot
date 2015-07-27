@@ -136,7 +136,7 @@ class MatchesBot {
 	
 	private function getIcon($team){
 		if(array_key_exists($team, Config::$Icons)){
-			//
+			return Config::$Icons[$team];
 		}
 		return str_replace("`", "", preg_replace('/\s+/', '', strtolower($team)));
 	}
