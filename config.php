@@ -22,5 +22,8 @@ class Config {
 	static $Icons = array(
 		"Fnatic" => "fnc",
 	);
+	static $Blacklisted_Teams = array(
+		"The International 2015" => array("CDEC", "MVP"),
+	);
 }
 ?>

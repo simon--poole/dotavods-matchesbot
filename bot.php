@@ -61,7 +61,6 @@ class MatchesBot {
 		$count = 0;
 		$result = "";
 		foreach($matches as $match){
-			$spoiler = $this->checkSpoiler($match[0], $match[1], $match[2]);
 			if($match[3] < (-3600 * $match[4]))
 				continue 1;
 			else if($match[3] <= 0)
@@ -80,20 +79,24 @@ class MatchesBot {
 				$result .= "| | | | |\n:--:|:--|:--:|--:";
 			}
 			$previous_tournament = $match[0];
-			$team1 = $this->getTeam($match[1]);
-			$team2 = $this->getTeam($match[2]);
-			if($spoiler)
-				$result .= PHP_EOL."$time | [$team1](/spoiler) | vs. | [$team2](/spoiler)";
-			else	{
-				$icon1 = $this->getIcon($team1);
-				$icon2 = $this->getIcon($team2);
-				$result .= PHP_EOL."$time | **$team1** [](#$icon1)| vs. |[](#$icon2) **$team2**";
-			}
+			$teams = $this->formatTeams($match[0], $match[1], $match[2]);
+			$result .= PHP_EOL."$time | $teams[0] | vs. | $teams[1]";
 			if(++$count == $this->limit)
 					break;
 		}
 		return $result;
 	}
+	 private function formatTeams($event, $team1, $team2){
+		 if($this->checkMatchSpoiler($event, $team1, $team2))
+			return array("[$team1](/spoiler) [](#spoiler)", "[](#spoiler) [$team2](/spoiler)");
+		else {
+			$icon1 = $this->getIcon($team1);
+			$icon2 = $this->getIcon($team2);
+			$team1 = $this->checkTeamSpoiler($event, $team1) ? "[$team1](/spoiler) [](#spoilers)" : "**$team1** [](#$icon1)";
+			$team2 = $this->checkTeamSpoiler($event, $team2) ? "[](#spoilers) [$team2](/spoiler)" : "[](#$icon2) **$team2**";
+			return array($team1, $team2);
+		}
+	 }
 	public function loadSidebar($matches) {
 		$this->login();
 		$this->snoopy->fetch("http://www.reddit.com/r/".Config::$Settings['subreddit']."/wiki/".Config::$wiki['page'].".json");
@@ -146,7 +149,7 @@ class MatchesBot {
 		else
 			return $team;
 	}
-	private function checkSpoiler($title, $t1, $t2){
+	private function checkMatchSpoiler($title, $t1, $t2){
 		if($t1 == "TBD" && $t2 == "TBD")
 			return false;
 		foreach(Config::$Settings['spoilers'] as $spoiler){
@@ -154,6 +157,11 @@ class MatchesBot {
 				return true;
 		}
 		return false;
-	}	
+	}
+	private function checkTeamSpoiler($title, $team){
+		if(array_key_exists($title, Config::$Blacklisted_Teams) && in_array($team, Config::$Blacklisted_Teams[$title]))
+			return true;
+		return false;
+	}
 }
 ?>
