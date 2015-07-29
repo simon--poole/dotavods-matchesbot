@@ -18,12 +18,16 @@ class Config {
 	);
 	static $Teams = array(
 		"NAR v2" => "Archon",
+		"MVP.Phoenix" => "MVP.P"
 	);
 	static $Icons = array(
 		"Fnatic" => "fnc",
+		"MVP.Hot6" => "mvp",
+		"MVP.P" => "mvp",
+		"Na'Vi" => "navi"
 	);
 	static $Blacklisted_Teams = array(
-		"The International 2015" => array("CDEC", "MVP"),
+		"The International 2015" => array("CDEC", "MVP.P"),
 	);
 }
 ?>

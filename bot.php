@@ -87,6 +87,8 @@ class MatchesBot {
 		return $result;
 	}
 	 private function formatTeams($event, $team1, $team2){
+	 	$team1 = $this->getTeam($team1);
+	 	$team2 = $this->getTeam($team2);
 		 if($this->checkMatchSpoiler($event, $team1, $team2))
 			return array("[$team1](/spoiler) [](#spoiler)", "[](#spoiler) [$team2](/spoiler)");
 		else {
