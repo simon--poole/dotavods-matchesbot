@@ -1,8 +1,9 @@
 <?php
 class Config {
 	static $Settings = array(
-		"subreddit"=>"dotavods",				//Subreddit for bot to run on
-		"spoilers"=>array("final", "playoffs"),
+		"useragent" => "/r/DotaVods Sidebar Matches Bot by github.com/simon--poole",
+		"subreddit"=>"dotavods", //Subreddit for bot to run on
+		"spoilers"=>array("final", "playoffs", "The International 2015"),
 	);
 	//Wikipage that bot will access to load sidebar details
 	//Make sure your bot account has access to it
@@ -12,9 +13,10 @@ class Config {
 	);
 	//User account details
 	static $User = array(
-		"user"=>'',
-		"passwd"=>"",
-		"api_type"=>"json",
+		"user"=>"",
+		"password"=>"",
+		"client_id" => "",
+		"client_secret" => "",
 	);
 	static $Teams = array(
 		"NAR v2" => "Archon",
